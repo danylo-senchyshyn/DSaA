@@ -1,0 +1,19 @@
+LOAD =1          
+STORE 2         
+READ 1         
+LOAD 1          
+JZ FIN          
+STORE 3          
+
+LOOP: 
+LOAD 2        
+ADD 2          
+STORE 2      
+LOAD 3        
+SUB =1          
+STORE 3        
+JGTZ LOOP     
+
+FIN:
+WRITE 2        
+HALT           
