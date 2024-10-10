@@ -181,7 +181,10 @@
     }
 
 void FastCat(LList L1, LList L2) {
-    if(L1 == NULL || L2 == NULL) Error("FastCat: incorrect list!");
+    if(L1 == NULL || L2 == NULL) {
+        Error("One of the list doesn`t exist");
+        return;
+    }
 
     if(IsEmpty(L2)) return; // Ничего не делать, если L2 пустой
 
@@ -198,7 +201,10 @@ void FastCat(LList L1, LList L2) {
 }
 
 LList FreshCat(LList L1, LList L2) {
-    if(L1 == NULL || L2 == NULL) Error("FreshCat: incorrect list!");
+    if(L1 == NULL || L2 == NULL) {
+        Error("One of the list doesn`t exist");
+        return NULL;
+    }
 
     LList NewList = MakeEmpty(NULL);
     PNode P = L1->First;
@@ -218,7 +224,9 @@ LList FreshCat(LList L1, LList L2) {
 }
 
 LList Cut(LList L, PNode P) {
-    if(L == NULL || P == NULL) Error("Cut: incorrect list or pointer!");
+    if(L == NULL || P == NULL) {
+        Error("List or pNode doesn`t exist");
+    }
 
     LList NewList = MakeEmpty(NULL);
     if (P->Next == NULL) return NewList;
