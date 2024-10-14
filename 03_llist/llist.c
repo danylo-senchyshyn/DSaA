@@ -223,31 +223,27 @@ LList FreshCat(LList L1, LList L2) {
     return NewList;
 }
 
-LList Cut(LList L, PNode P) {
-    if (L == NULL || P == NULL) {
-        Error("Cut: List or PNode doesn't exist");
+LList Cut( LList L, PNode P ) {
+    if(L == NULL || P == NULL) {
+        Error("List or pNode doesn`t exist");
     }
 
     LList L2 = malloc(sizeof(struct LnkList));
-    if (L2 == NULL) {
-        Error("Cut: Memory allocation failed");
-    }
     L2->First = NULL;
     L2->Last = NULL;
 
-    if (!IsEmpty(L)) {
-        PNode tmp = L->First;
-        while (tmp != NULL) {
-            if (tmp == P) {
+    PNode tmp = L->First;
+    if(!IsEmpty(L)) {
+        do {
+            if(tmp == P) {
                 L2->First = tmp->Next;
                 L2->Last = L->Last;
-
                 L->Last = tmp;
-                tmp->Next = NULL;  
+                L->Last->Next = NULL;
                 break;
             }
             tmp = tmp->Next;
-        }
+        } while(tmp != NULL);
     }
 
     return L2;
