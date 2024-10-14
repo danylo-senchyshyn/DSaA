@@ -226,6 +226,7 @@ LList FreshCat(LList L1, LList L2) {
 LList Cut( LList L, PNode P ) {
     if(L == NULL || P == NULL) {
         Error("List or pNode doesn`t exist");
+        return;
     }
 
     LList L2 = malloc(sizeof(struct LnkList));
