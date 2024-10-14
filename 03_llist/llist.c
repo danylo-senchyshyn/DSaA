@@ -224,7 +224,7 @@ LList FreshCat(LList L1, LList L2) {
 }
 
 LList Cut( LList L, PNode P ) {
-    if(L == NULL || L == NULL) {
+    if(L == NULL || P == NULL) {
         Error("One of the list doesn`t exist");
         return NULL;
     }
