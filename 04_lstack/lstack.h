@@ -10,7 +10,6 @@ struct StackNode {
 
 typedef struct StackNode* LStack;
 
-// Прототипы операций
 int IsEmptyStack(LStack S);
 LStack CreateStack(void);
 void RemoveStack(LStack *PS);
