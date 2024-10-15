@@ -29,5 +29,15 @@ int main( )
     RemoveQueue(&Q2);
     printf("\n");
 
+    printf("\nFront of Q1: %d", Front(Q1));
+    Dequeue(Q1);
+    printf("\nAfter Dequeue, Q1: ");
+    PrintQueue(Q1);
+
+    int frontAndDequeue = FrontAndDequeue(Q1);
+    printf("\nFrontAndDequeue result: %d", frontAndDequeue);
+    printf("\nAfter FrontAndDequeue, Q1: ");
+    PrintQueue(Q1);
+
     return 0;
 }
