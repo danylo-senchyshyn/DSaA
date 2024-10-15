@@ -60,7 +60,10 @@
     void Push( TElem X, LStack S )
     {
         PNode PNew;
-        if(S == NULL) Error("Push: incorrect stack!");
+        if(S == NULL) {
+            Error("Push: incorrect stack!");
+            return;
+        }
         PNew = malloc(sizeof(struct Node));
         if(PNew == NULL) Error("Push: out of memory!");
         PNew->Elem = X;
@@ -72,7 +75,10 @@
     // Prints elements in the tack S
     void PrintStack( LStack S )
     {
-        if(S == NULL) Error("PrintStack: incorrect stack!");
+        if(S == NULL) {
+            Error("PrintStack: incorrect stack!");
+            return;
+        }
         if(IsEmptyStack(S)) printf("Empty stack");
         else{
             PNode PTmp = S->First;
@@ -87,6 +93,7 @@
     TElem Top(LStack S) {
         if (S == NULL || IsEmptyStack(S)) {
             Error("Top: Stack is empty or incorrect!");
+            return;
         }
         return S->First->Elem;
     }
@@ -94,6 +101,7 @@
     void Pop(LStack S) {
         if (S == NULL || IsEmptyStack(S)) {
             Error("Pop: Stack is empty or incorrect!");
+            return;
         }
         PNode temp = S->First;
         S->First = S->First->Next;
