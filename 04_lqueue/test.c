@@ -1,29 +1,33 @@
-#include "lqueue.h"
-#include "err.h"
 #include <stdio.h>
+#include "lqueue.h"
 
-int main() {
-    LQueue* queue = CreateQueue();
+int main( )
+{
+    printf("\nADT Queue\n");
 
-    Enqueue(10, queue);
-    Enqueue(20, queue);
-    Enqueue(30, queue);
+    LQueue Q1,Q2;
+    Q1 = CreateQueue();
+    Q2 = CreateQueue();
 
-    printf("Queue contents: ");
-    PrintQueue(queue);
+    printf("\nEnqueue: ");
+    for(int i = 1; i <= 5; i++){
+        Enqueue(i,Q1);
+        printf("Enqueue %d ", i);
+        Enqueue(i,Q2);
+    }
 
-    printf("Front element: %d\n", Front(queue));
+    if(IsEmptyQueue(Q1)) printf("\nQ1 empty "); else printf("\nQ1 not empty ");
 
-    Dequeue(queue);
-    printf("Queue contents after Dequeue: ");
-    PrintQueue(queue);
+    printf("\nMakeEmptyQueue: ");
+    if(IsEmptyQueue(Q2)) printf("\nQ2 empty "); else printf("\nQ2 not empty ");
+    PrintQueue(Q2);
+    MakeEmptyQueue(Q2);
+    if(IsEmptyQueue(Q2)) printf("\nQ2 empty "); else printf("\nQ2 not empty ");
+    PrintQueue(Q2);
 
-    printf("Front element and removing it: %d\n", FrontAndDequeue(queue));
-    PrintQueue(queue);
-
-    RemoveQueue(queue);
-    printf("Queue contents after removing: ");
-    PrintQueue(queue);
+    RemoveQueue(&Q1);
+    RemoveQueue(&Q2);
+    printf("\n");
 
     return 0;
 }
