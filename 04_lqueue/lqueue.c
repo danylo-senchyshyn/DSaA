@@ -71,15 +71,38 @@
         Q->Rear = PNew;
     }
 
-    void PrintQueue( LQueue Q )
-    {
-        if(Q == NULL) Error("PrintQueue: incorrect queue!");
-        if(IsEmptyQueue(Q)) printf("Empty queue");
-        else{
+    TElem Front(LQueue Q) {
+        if (Q == NULL) Error("Front: incorrect queue!");
+        if (IsEmptyQueue(Q)) Error("Front: queue is empty!");
+        return Q->Front->Elem;
+    }
+
+    void Dequeue(LQueue Q) {
+        if (Q == NULL) Error("Dequeue: incorrect queue!");
+        if (IsEmptyQueue(Q)) Error("Dequeue: queue is empty!");
+        PNode PFirst = Q->Front;
+        Q->Front = Q->Front->Next;
+        if (Q->Front == NULL) {
+            Q->Rear = NULL; // Очередь становится пустой
+        }
+        free(PFirst);
+    }
+
+    TElem FrontAndDequeue(LQueue Q) {
+        TElem frontElem = Front(Q);
+        Dequeue(Q);
+        return frontElem;
+    }
+
+    void PrintQueue(LQueue Q) {
+        if (Q == NULL) Error("PrintQueue: incorrect queue!");
+        if (IsEmptyQueue(Q)) printf("Empty queue\n");
+        else {
             PNode PTmp = Q->Front;
-            while(PTmp != NULL){
+            while (PTmp != NULL) {
                 printf("%d ", PTmp->Elem);
                 PTmp = PTmp->Next;
             }
+            printf("\n");
         }
     }
