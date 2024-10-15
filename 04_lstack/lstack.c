@@ -83,3 +83,28 @@
             }
         }
     }
+
+    TElem Top(LStack S) {
+        if (S == NULL || IsEmptyStack(S)) {
+            Error("Top: Stack is empty or incorrect!");
+        }
+        return S->First->Elem;
+    }
+
+    void Pop(LStack S) {
+        if (S == NULL || IsEmptyStack(S)) {
+            Error("Pop: Stack is empty or incorrect!");
+        }
+        PNode temp = S->First;
+        S->First = S->First->Next;
+        if (S->First == NULL) {
+            S->Last = NULL; 
+        }
+        free(temp);
+    }
+
+    TElem TopAndPop(LStack S) {
+        TElem topElem = Top(S); 
+        Pop(S);             
+        return topElem;        
+    }
