@@ -93,7 +93,6 @@
     TElem Top(LStack S) {
         if (S == NULL || IsEmptyStack(S)) {
             Error("Top: Stack is empty or incorrect!");
-            return;
         }
         return S->First->Elem;
     }
