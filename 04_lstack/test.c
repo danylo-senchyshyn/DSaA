@@ -9,20 +9,20 @@ int main() {
     Push(20, &stack);
     Push(30, &stack);
     
-    printf("Содержимое стека: ");
-    PrintStack(stack);
+    printf("Stack contents: ");
+    PrintStack(stack); 
 
-    printf("Верхний элемент: %d\n", Top(stack)); 
+    printf("Top element: %d\n", Top(stack)); 
     Pop(&stack);
-    printf("Содержимое стека после Pop: ");
-    PrintStack(stack);
+    printf("Stack contents after Pop: ");
+    PrintStack(stack); 
 
-    printf("Верхний элемент и его удаление: %d\n", TopAndPop(&stack));
+    printf("Top element and removing it: %d\n", TopAndPop(&stack)); 
     PrintStack(stack); 
 
     RemoveStack(&stack);
-    printf("Содержимое стека после удаления: ");
-    PrintStack(stack);
+    printf("Stack contents after removing: ");
+    PrintStack(stack); 
 
     return 0;
 }
