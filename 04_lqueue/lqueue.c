@@ -1,81 +1,85 @@
-#include "lqueue.h"
-#include "err.h"
-#include <stdlib.h>
+    // SS 2019, KPI FEI TUKE
 
-int IsEmptyQueue(LQueue* Q) {
-    return Q->front == NULL;
-}
+    #include "lqueue.h"
+    #include "err.h"
+    #include <stdlib.h>
 
-LQueue* CreateQueue(void) {
-    LQueue* Q = (LQueue*)malloc(sizeof(LQueue));
-    if (Q == NULL) {
-        ERROR("Out of memory");
+    struct Node
+    {
+        PNode	Next;
+        TElem	Elem;
+    };
+
+    struct LnkQueue
+    {
+        PNode	Front;
+        PNode	Rear;
+    };
+
+    int IsEmptyQueue( LQueue Q )
+    {
+        if(Q == NULL) Error("IsEmptyQueue: incorrect queue!");
+        return Q->Front == NULL;
     }
-    Q->front = Q->rear = NULL;
-    return Q;
-}
 
-void RemoveQueue(LQueue* Q) {
-    MakeEmptyQueue(Q);
-    free(Q);
-}
+    LQueue CreateQueue( void )
+    {
+        LQueue Q;
+        Q = malloc(sizeof(struct LnkQueue));
+        if(Q == NULL)Error("CreateQueue: out of memory!");
+        Q->Front = NULL;
+        Q->Rear = NULL;
+        return Q;
+    }
 
-void MakeEmptyQueue(LQueue* Q) {
-    while (!IsEmptyQueue(Q)) {
-        Dequeue(Q);
+    // Removes a queue
+    // Receives a pointer to LQueue, not LQueue itself
+    void RemoveQueue( LQueue *PQ )
+    {
+        if(PQ == NULL) Error("RemoveQueue: incorrect pointer!");
+        if(*PQ == NULL) return;
+        LQueue Q = *PQ;
+        MakeEmptyQueue(Q);
+        free(Q);
+        *PQ = NULL;
     }
-}
 
-void Enqueue(TElem X, LQueue* Q) {
-    struct QueueNode* newNode = (struct QueueNode*)malloc(sizeof(struct QueueNode));
-    if (newNode == NULL) {
-        ERROR("Out of memory");
+    // Removes elements from a queue
+    void MakeEmptyQueue( LQueue Q )
+    {
+        if(Q == NULL) Error("MakeEmptyQueue: incorrect queue!");
+        PNode PFirst;
+        while(!IsEmptyQueue(Q)){
+            PFirst = Q->Front;
+            if(Q->Front == Q->Rear) Q->Rear = NULL;         // the only element in queue
+            Q->Front = Q->Front->Next;
+            free(PFirst);
+        }
     }
-    newNode->data = X;
-    newNode->next = NULL;
 
-    if (IsEmptyQueue(Q)) {
-        Q->front = Q->rear = newNode;
-    } else {
-        Q->rear->next = newNode;
-        Q->rear = newNode;
+    // Inserts element to the end of a list
+    void Enqueue( TElem X, LQueue Q )
+    {
+        PNode PNew;
+        if(Q == NULL) Error("Enqueue: incorrect queue!");
+        PNew = malloc(sizeof(struct Node));
+        if(PNew == NULL) Error("Enqueue: out of memory!");
+        PNew->Elem = X;
+        PNew->Next = NULL;
+        if(IsEmptyQueue(Q)) Q->Front = PNew;
+        else Q->Rear->Next = PNew;
+        Q->Rear = PNew;
     }
-}
 
-TElem Front(LQueue* Q) {
-    if (IsEmptyQueue(Q)) {
-        ERROR("Queue is empty");
+    void PrintQueue( LQueue Q )
+    {
+        if(Q == NULL) Error("PrintQueue: incorrect queue!");
+        if(IsEmptyQueue(Q)) printf("Empty queue");
+        else{
+            PNode PTmp = Q->Front;
+            while(PTmp != NULL){
+                printf("%d ", PTmp->Elem);
+                PTmp = PTmp->Next;
+            }
+        }
     }
-    return Q->front->data;
-}
-
-void Dequeue(LQueue* Q) {
-    if (IsEmptyQueue(Q)) {
-        ERROR("Queue is empty");
-    }
-    struct QueueNode* temp = Q->front;
-    Q->front = Q->front->next;
-    if (Q->front == NULL) {
-        Q->rear = NULL;
-    }
-    free(temp);
-}
-
-TElem FrontAndDequeue(LQueue* Q) {
-    TElem frontElem = Front(Q);
-    Dequeue(Q);
-    return frontElem;
-}
-
-void PrintQueue(LQueue* Q) {
-    if (IsEmptyQueue(Q)) {
-        printf("Queue is empty\n");
-        return;
-    }
-    struct QueueNode* temp = Q->front;
-    while (temp != NULL) {
-        printf("%d ", temp->data);
-        temp = temp->next;
-    }
-    printf("\n");
-}
