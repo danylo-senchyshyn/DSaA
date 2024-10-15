@@ -1,15 +1,13 @@
 #ifndef LSTACK_H
 #define LSTACK_H
 
-typedef int TElem; // Тип элементов в стеке
+typedef int TElem;
 
-// Определение структуры для элемента стека
 struct StackNode {
     TElem data;
     struct StackNode* next;
 };
 
-// Определение типа для стека
 typedef struct StackNode* LStack;
 
 // Прототипы операций
