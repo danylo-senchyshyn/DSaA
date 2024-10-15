@@ -61,7 +61,10 @@
     void Enqueue( TElem X, LQueue Q )
     {
         PNode PNew;
-        if(Q == NULL) Error("Enqueue: incorrect queue!");
+        if(Q == NULL) {
+            Error("Enqueue: incorrect queue!");
+            return;
+        }
         PNew = malloc(sizeof(struct Node));
         if(PNew == NULL) Error("Enqueue: out of memory!");
         PNew->Elem = X;
@@ -73,7 +76,10 @@
 
     void PrintQueue( LQueue Q )
     {
-        if(Q == NULL) Error("PrintQueue: incorrect queue!");
+        if(Q == NULL) {
+            Error("PrintQueue: incorrect queue!");
+            return;
+        }
         if(IsEmptyQueue(Q)) printf("Empty queue");
         else{
             PNode PTmp = Q->Front;
@@ -87,6 +93,7 @@
     TElem Front(LQueue Q) {
         if (Q == NULL || IsEmptyQueue(Q)) {
             Error("Front: Queue is empty or incorrect!");
+            return;
         }
         return Q->Front->Elem;
     }
@@ -94,6 +101,7 @@
     void Dequeue(LQueue Q) {
         if (Q == NULL || IsEmptyQueue(Q)) {
             Error("Dequeue: Queue is empty or incorrect!");
+            return;
         }
         PNode temp = Q->Front;
         Q->Front = Q->Front->Next;
