@@ -35,5 +35,15 @@ int main( )
     RemoveStack(&S1);
     printf("\n");
 
+    printf("\nTop of S0: %d", Top(S0));
+    Pop(S0);
+    printf("\nAfter Pop, S0: ");
+    PrintStack(S0);
+
+    int topAndPop = TopAndPop(S0);
+    printf("\nTopAndPop result: %d", topAndPop);
+    printf("\nAfter TopAndPop, S0: ");
+    PrintStack(S0);
+
     return 0;
 }
