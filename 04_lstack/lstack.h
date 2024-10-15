@@ -1,23 +1,25 @@
-#ifndef LSTACK_H
-#define LSTACK_H
+    typedef int TElem;
 
-typedef int TElem;
+    #ifndef LSTACK_H_INCLUDED
+    #define LSTACK_H_INCLUDED
 
-struct StackNode {
-    TElem data;
-    struct StackNode* next;
-};
+    struct Node;
+    struct LnkStack;
+    typedef struct Node *PtrToNode;
+    typedef struct LnkStack *PtrToStack;
+    typedef PtrToNode PNode;
+    typedef PtrToStack LStack;
 
-typedef struct StackNode* LStack;
+    int IsEmptyStack( LStack S );
+    LStack CreateStack( void );
+    void RemoveStack( LStack *PS );
+    void MakeEmptyStack( LStack S );
+    void Push( TElem X, LStack S );
+    TElem Top( LStack S );
+    void Pop( LStack S );
+    TElem TopAndPop( LStack S );
+    void PrintStack( LStack S );
+	
+    void MyPrintf(const char *format, ...);
 
-int IsEmptyStack(LStack S);
-LStack CreateStack(void);
-void RemoveStack(LStack *PS);
-void MakeEmptyStack(LStack S);
-void Push(TElem X, LStack S);
-TElem Top(LStack S);
-void Pop(LStack S);
-TElem TopAndPop(LStack S);
-void PrintStack(LStack S);
-
-#endif
+    #endif // LSTACK_H_INCLUDED
