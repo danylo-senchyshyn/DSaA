@@ -1,28 +1,39 @@
-#include "lstack.h"
-#include "err.h"
 #include <stdio.h>
+#include "lstack.h"
 
-int main() {
-    LStack stack = CreateStack();
+int main( )
+{
+    LStack S0,S1;
 
-    Push(10, &stack);
-    Push(20, &stack);
-    Push(30, &stack);
-    
-    printf("Stack contents: ");
-    PrintStack(stack); 
+    S0 = CreateStack();
+    S1 = CreateStack();
 
-    printf("Top element: %d\n", Top(stack)); 
-    Pop(&stack);
-    printf("Stack contents after Pop: ");
-    PrintStack(stack); 
+    printf("\nADT Stack\n");
 
-    printf("Top element and removing it: %d\n", TopAndPop(&stack)); 
-    PrintStack(stack); 
+    printf("\nPush: ");
+    for(int i=1; i<=5;i++)
+    {
+        Push(i,S0);
+        Push(i,S1);
+        printf("%d ", i);
+    }
 
-    RemoveStack(&stack);
-    printf("Stack contents after removing: ");
-    PrintStack(stack); 
+    printf("\nPrintStack: ");
+    printf("\nS0: ");
+    PrintStack(S0);
+    printf("\nS1: ");
+    PrintStack(S1);
+
+    printf("\nMakeEmpty: [MakeEmptyStack(S1)]");
+    MakeEmptyStack(S1);
+
+    printf("\nIsEmpty: ");
+    if(IsEmptyStack(S0)) printf("S0 empty "); else printf("S0 not empty ");
+    if(IsEmptyStack(S1)) printf("S1 empty "); else printf("S1 not empty ");
+
+    RemoveStack(&S0);
+    RemoveStack(&S1);
+    printf("\n");
 
     return 0;
 }
