@@ -1,66 +1,85 @@
-#include "lstack.h"
-#include "err.h"
+    // SS 2019, KPI FEI TUKE
 
-int IsEmptyStack(LStack S) {
-    return S == NULL;
-}
+    #include "lstack.h"
+    #include "err.h"
+    #include <stdlib.h>
 
-LStack CreateStack(void) {
-    return NULL; 
-}
+    struct Node
+    {
+        PNode	Next;
+        TElem	Elem;
+    };
 
-void RemoveStack(LStack *PS) {
-    MakeEmptyStack(*PS);
-    *PS = NULL;
-}
+    struct LnkStack
+    {
+        PNode	First;
+        PNode	Last;
+    };
 
-void MakeEmptyStack(LStack S) {
-    while (!IsEmptyStack(S)) {
-        Pop(S);
+    int IsEmptyStack( LStack S )
+    {
+        if(S == NULL) Error("IsEmptyStack: incorrect stack!");
+        return S->First == NULL;
     }
-}
 
-void Push(TElem X, LStack *PS) {
-    LStack newNode = (LStack)malloc(sizeof(struct StackNode));
-    if (newNode == NULL) {
-        ERROR("Out of memory");
+    LStack CreateStack( void )
+    {
+        LStack S;
+        S = malloc(sizeof(struct LnkStack));
+        if(S == NULL)Error("CreateStack: out of memory!");
+        S->First = NULL;
+        S->Last = NULL;
+        return S;
     }
-    newNode->data = X;
-    newNode->next = *PS;
-    *PS = newNode;
-}
 
-// Получение элемента с вершины стека (Top)
-TElem Top(LStack S) {
-    if (IsEmptyStack(S)) {
-        ERROR("Stack is empty");
+    // Removes a stack
+    // Receives a pointer to LStack, not LStack itself
+    void RemoveStack( LStack *PS )
+    {
+        if(PS == NULL) Error("RemoveStack: incorrect pointer!");
+        if(*PS == NULL) return;
+        LStack S = *PS;
+        MakeEmptyStack(S);
+        free(S);
+        *PS = NULL;
     }
-    return S->data;
-}
 
-void Pop(LStack *PS) {
-    if (IsEmptyStack(*PS)) {
-        ERROR("Stack is empty");
+    void MakeEmptyStack( LStack S )
+    {
+        if(S == NULL) Error("MakeEmptyStack: incorrect stack!");
+        PNode PTop;
+        while(!IsEmptyStack(S)){
+            PTop = S->First;
+            if(S->First == S->Last) S->Last = NULL;
+            S->First = S->First->Next;
+            free(PTop);
+        }
     }
-    LStack temp = *PS;
-    *PS = (*PS)->next;
-    free(temp);
-}
 
-TElem TopAndPop(LStack *PS) {
-    TElem topElem = Top(*PS);
-    Pop(PS);
-    return topElem;
-}
+    // Inserting element to the beginning of a list
+    void Push( TElem X, LStack S )
+    {
+        PNode PNew;
+        if(S == NULL) Error("Push: incorrect stack!");
+        PNew = malloc(sizeof(struct Node));
+        if(PNew == NULL) Error("Push: out of memory!");
+        PNew->Elem = X;
+        PNew->Next = S->First;
+        if(IsEmptyStack(S)) S->Last = PNew;
+        S->First = PNew;
+    }
 
-void PrintStack(LStack S) {
-    if (IsEmptyStack(S)) {
-        printf("Stack is empty\n");
-        return;
+    // Prints elements in the tack S
+    void PrintStack( LStack S )
+    {
+        if(S == NULL) Error("PrintStack: incorrect stack!");
+        if(IsEmptyStack(S)) printf("Empty stack");
+        else{
+            PNode PTmp = S->First;
+            printf("Top> ");
+            while(PTmp != NULL){
+                printf("%d ", PTmp->Elem);
+                PTmp = PTmp->Next;
+            }
+        }
     }
-    while (S != NULL) {
-        printf("%d ", S->data);
-        S = S->next;
-    }
-    printf("\n");
-}
