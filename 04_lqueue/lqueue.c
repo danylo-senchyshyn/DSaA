@@ -93,6 +93,7 @@
     TElem Front(LQueue Q) {
         if (Q == NULL || IsEmptyQueue(Q)) {
             Error("Front: Queue is empty or incorrect!");
+            return -1;
         }
         return Q->Front->Elem;
     }
