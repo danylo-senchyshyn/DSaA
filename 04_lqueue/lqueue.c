@@ -112,6 +112,10 @@
     }
 
     TElem FrontAndDequeue(LQueue Q) {
+        if (Q == NULL || IsEmptyQueue(Q)) {
+            Error("FrontAndDequeue: Queue is NULL or empty!");
+            return -1;
+        }
         TElem frontElem = Front(Q);
         Dequeue(Q);
         return frontElem;
