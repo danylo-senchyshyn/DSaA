@@ -25,19 +25,26 @@ Tree CreateTree(int MaxLevel) {
     return T;
 }
 
+void DisposeTree(Tree T) {
+    if (T != NULL) {
+        free(T->Array);
+        free(T);
+    }
+}
+
+void MakeEmpty(Tree T) {
+    if (T == NULL) Error("No tree!");
+    for (int i = 1; i < pow(2, T->MaxLevel + 1); i++) {
+        T->Array[i] = 0;
+    }
+}
+
 void Insert(Tree T, int Index, int Elem) {
     if (T == NULL) Error("No tree!");
     if (Index < 1 || Index >= pow(2, T->MaxLevel + 1))
         Error("Bad index!");
     else
         T->Array[Index] = Elem;
-}
-
-void DisposeTree(Tree T) {
-    if (T != NULL) {
-        free(T->Array);
-        free(T);
-    }
 }
 
 void PrintTree(Tree T) {
@@ -52,7 +59,12 @@ void PrintTree(Tree T) {
             if (j == 0)
                 for (int s = 0; s < level_spaces / 2; s++) putchar(' ');
 
-            printf("%02d", T->Array[k++]);
+            if (T->Array[k] != 0)
+                printf("%02d", T->Array[k]);
+            else
+                printf("..");
+
+            k++;
             for (int s = 0; s < level_spaces; s++) putchar(' ');
         }
         putchar('\n');
@@ -63,11 +75,14 @@ void PrintRow(Tree T, int Level) {
     if (T == NULL) Error("No tree!");
     if (Level < 1 || Level > T->MaxLevel) Error("Invalid level!");
 
-    int start = pow(2, Level - 1);
-    int end = pow(2, Level) - 1;
+    int start = pow(2, Level) - 1;
+    int end = start + pow(2, Level) - 1;
 
     for (int i = start; i <= end; i++) {
-        printf("%02d ", T->Array[i]);
+        if (T->Array[i] != 0)
+            printf("%02d ", T->Array[i]);
+        else
+            printf(".. ");
     }
     putchar('\n');
 }
@@ -76,10 +91,11 @@ void PrintSubtree(Tree T, int Index) {
     if (T == NULL) Error("No tree!");
     if (Index < 1 || Index >= pow(2, T->MaxLevel + 1)) Error("Bad index!");
 
+    if (T->Array[Index] != 0)
+        printf("%02d ", T->Array[Index]);
+
     int left = 2 * Index;
     int right = 2 * Index + 1;
-
-    printf("%02d ", T->Array[Index]);
 
     if (left < pow(2, T->MaxLevel + 1) && T->Array[left] != 0)
         PrintSubtree(T, left);
