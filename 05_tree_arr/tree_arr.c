@@ -102,3 +102,9 @@ void PrintSubtree(Tree T, int Index) {
     if (right < pow(2, T->MaxLevel + 1) && T->Array[right] != 0)
         PrintSubtree(T, right);
 }
+
+void PrintSpaces(int Count) {
+    for (int i = 0; i < Count; i++) {
+        putchar(' ');
+    }
+}
