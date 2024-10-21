@@ -35,8 +35,6 @@ void DisposeGraph(Graph G) {
     }
 }
 
-
-/* a function to build adjacency matrix of a graph */
 void buildadjm(Graph G) {
     int u, v;
     printf("Введите ребра в формате 'u v' (Ctrl+D для завершения):\n");
@@ -64,6 +62,22 @@ void ClearVisited(Graph G) {
 
 // 3 stavy - 0 (not found), 1 (opened), 2 (closed)
 void dfs(Graph G, int v0) {
+    if (G == NULL) {
+        Error("Graph is NULL!");
+    }
+    if (G->nodes <= 0) {
+        Error("Graph has no nodes!");
+    }
+    if (v0 < 0 || v0 >= G->nodes) {
+        Error("Starting node is out of bounds!");
+    }
+    if (G->visited[v0] == 1) {
+        return;
+    }
+    if (G->visited[v0] == 2) {
+        return;
+    }
+
     printf("Посещаем узел %d\n", v0);
     G->visited[v0] = 1;
 
@@ -72,6 +86,8 @@ void dfs(Graph G, int v0) {
             dfs(G, i);
         }
     }
+
+    G->visited[v0] = 2;
 }
 
 void dfs2(Graph G, int v) {
