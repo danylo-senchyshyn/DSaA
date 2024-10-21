@@ -19,7 +19,6 @@
     void Dequeue( LQueue Q );
     TElem FrontAndDequeue( LQueue Q );
     void PrintQueue( LQueue Q );
-
     void MyPrintf(const char *format, ...);
 
     #endif // LQUEUE_H_INCLUDED

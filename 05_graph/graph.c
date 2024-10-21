@@ -3,8 +3,6 @@
 #include "graph.h"
 #include "lqueue.h"
 
-#define max 100
-
 struct GraphRecord
 {
       int adj[max][max];
