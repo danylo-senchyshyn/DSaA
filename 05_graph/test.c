@@ -2,29 +2,31 @@
 #include "graph.h"
 #include "err.h"
 
-int main() {
+int main()
+{
     int n;
     Graph G;
-
-    printf("Enter the number of nodes in the graph (maximum = %d): ", max);
-    scanf("%d", &n);
-
-    if (n > max) {
-        Error("Exceeded maximum number of nodes!");
-    }
-
+    printf("enter the number of nodes in graph maximum = %d\n",max);
+    scanf("%d",&n);
     G = CreateGraph(n);
-
     buildadjm(G);
 
     printf("\nAdjacency matrix:\n");
     printadjm(G);
 
-    printf("\nDepth first search (DFS):\n");
+    printf("\nDepth first search - DFS:\n");
     dfs(G, 0);
 
-    DisposeGraph(G);
+    printf("\nBreadth first search - BFS:\n");
+    bfs(G, 0);
 
+    printf("\nDFS Spanning tree:\n");
+    dfsst(G, 0);
+
+    printf("\nDFS Spanning tree:\n");
+    bfsst(G, 0);
+
+    DisposeGraph(G);
     putchar('\n');
     return 0;
 }
