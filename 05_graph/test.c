@@ -2,8 +2,6 @@
 #include "graph.h"
 #include "err.h"
 
-#define max 100
-
 int main() {
     int n;
     Graph G;
