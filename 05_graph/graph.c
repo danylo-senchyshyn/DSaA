@@ -50,8 +50,8 @@ void ClearVisited(Graph G) {
 // 3 stavy - 0 (not found), 1 (opened), 2 (closed)
 void dfs(Graph G, int v0) {
     if (G == NULL) {
-        Error("Graph is NULL!");
         return;
+        Error("Graph is NULL!");
     }
 
     ClearVisited(G);
@@ -84,8 +84,8 @@ int find_not_visited_node(Graph G) {
 
 void dfsst(Graph G, int v0) {
     if(G == NULL) {
-        Error("No graph");
         return;
+        Error("No graph");
     }
     ClearVisited(G);
 
@@ -107,8 +107,8 @@ void dfsst2(Graph G, int v) {
 
 void bfs(Graph G, int v0) {
     if(G == NULL) {
-        Error("No graph");
         return;
+        Error("No graph");
     }
     ClearVisited(G);
     LQueue Q = CreateQueue();
@@ -131,8 +131,8 @@ void bfs(Graph G, int v0) {
 
 void bfsst(Graph G, int v0) {
     if (G == NULL) {
-        Error("No graph");
         return;
+        Error("No graph");
     }
     ClearVisited(G);
     LQueue Q = CreateQueue();
