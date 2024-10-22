@@ -103,6 +103,10 @@ void PrintSubtree(Tree T, int Index) {
         Error("No tree!");
         return;
     }
+    if (Index < 1 || Index >= GetMaxSize(T)) {
+        Error("Bad index!");
+        return;
+    }
 
     int k = 1;
     int to = pow(2, T->MaxLevel + 1);
