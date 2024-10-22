@@ -103,19 +103,14 @@ void PrintSubtree(Tree T, int Index) {
         Error("No tree!");
         return;
     }
-    if (Index < 1 || Index >= GetMaxSize(T) || T->Array[Index] == 0) {
-        Error("Bad index!");
-        return;
-    }
-    printf("%02d ", T->Array[Index]);
-    int leftChild = 2 * Index;
-    int rightChild = 2 * Index + 1;
 
-    if (leftChild < GetMaxSize(T) && T->Array[leftChild] != 0) {
-        PrintSubtree(T, leftChild);
-    }
-    if (rightChild < GetMaxSize(T) && T->Array[rightChild] != 0) {
-        PrintSubtree(T, rightChild);
+    int k = 1;
+    int to = pow(2, T->MaxLevel + 1);
+    for(int i = Index; i < to; i *= 2) {
+        for(int j = i; j < (k + i); j++) {
+            printf("%02d ", T->Array[j]);
+        }
+        k *= 2;
     }
 }
 
