@@ -75,12 +75,15 @@ void PrintSpaces(int Count) {
 void PrintRow(Tree T, int Level) {
     if (T == NULL) {
         Error("No tree!");
+        return;
     }
     if (Level < 0 || Level > T->MaxLevel) {
         Error("Bad level!");
+        return;
     }
     int start = pow(2, Level);
     int end = pow(2, Level + 1) - 1;
+
     for (int i = start; i <= end; i++) {
         if (i < GetMaxSize(T)) {
             if (T->Array[i] != 0) {
@@ -98,17 +101,20 @@ void PrintRow(Tree T, int Level) {
 void PrintSubtree(Tree T, int Index) {
     if (T == NULL) {
         Error("No tree!");
+        return;
     }
     if (Index < 1 || Index >= GetMaxSize(T) || T->Array[Index] == 0) {
         Error("Bad index!");
+        return;
     }
     printf("%02d ", T->Array[Index]);
     int leftChild = 2 * Index;
     int rightChild = 2 * Index + 1;
-    if (leftChild < GetMaxSize(T)) {
+
+    if (leftChild < GetMaxSize(T) && T->Array[leftChild] != 0) {
         PrintSubtree(T, leftChild);
     }
-    if (rightChild < GetMaxSize(T)) {
+    if (rightChild < GetMaxSize(T) && T->Array[rightChild] != 0) {
         PrintSubtree(T, rightChild);
     }
 }
