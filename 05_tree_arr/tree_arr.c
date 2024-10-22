@@ -99,7 +99,7 @@ void PrintRow(Tree T, int Level) {
 }
 
 void PrintSubtree(Tree T, int Index) {
-    if (T == NULL || Index == NULL) {
+    if (T == NULL) {
         Error("No tree!");
         return;
     }
@@ -108,11 +108,7 @@ void PrintSubtree(Tree T, int Index) {
     int to = pow(2, T->MaxLevel + 1);
     for(int i = Index; i < to; i *= 2) {
         for(int j = i; j < (k + i); j++) {
-            if (j < to && T->Array[j] != 0) {
-                printf("%02d ", T->Array[j]);
-            } else if (j < to) {
-                printf("-- ");
-            }
+            printf("%02d ", T->Array[j]);
         }
         k *= 2;
     }
