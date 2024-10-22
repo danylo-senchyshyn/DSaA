@@ -99,7 +99,7 @@ void PrintRow(Tree T, int Level) {
 }
 
 void PrintSubtree(Tree T, int Index) {
-    if (T == NULL) {
+    if (T == NULL || Index == NULL) {
         Error("No tree!");
         return;
     }
