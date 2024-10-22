@@ -100,10 +100,12 @@ void PrintRow(Tree T, int Level) {
 
 void PrintSubtree(Tree T, int Index) {
     if (T == NULL) {
+        return;
         Error("No tree!");
         return;
     }
     if (Index < 1 || Index >= GetMaxSize(T) || T->Array[Index] == 0) {
+        return;
         Error("Bad index!");
         return;
     }
@@ -111,10 +113,10 @@ void PrintSubtree(Tree T, int Index) {
     int leftChild = 2 * Index;
     int rightChild = 2 * Index + 1;
 
-    if (leftChild < GetMaxSize(T) && T->Array[leftChild] != 0) {
+    if (leftChild < GetMaxSize(T)) {
         PrintSubtree(T, leftChild);
     }
-    if (rightChild < GetMaxSize(T) && T->Array[rightChild] != 0) {
+    if (rightChild < GetMaxSize(T)) {
         PrintSubtree(T, rightChild);
     }
 }
