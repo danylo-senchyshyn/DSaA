@@ -21,7 +21,7 @@ Tree CreateTree(int MaxLevel) {
     T->Array = malloc(size * sizeof(int));
     if (T->Array == NULL) Error("Out of space!!!");
     for (int i = 0; i < size; i++) {
-        T->Array[i] = 0;
+        T->Array[i] = 0; // инициализируем нулями
     }
     return T;
 }
@@ -35,8 +35,8 @@ void DisposeTree(Tree T) {
 
 void MakeEmpty(Tree T) {
     if (T == NULL) Error("No tree!");
-    for (int i = 1; i < GetMaxSize(T); i++) {
-        T->Array[i] = 0;
+    for (int i = 0; i < GetMaxSize(T); i++) {
+        T->Array[i] = 0; // инициализируем нулями
     }
 }
 
@@ -55,7 +55,7 @@ void PrintTree(Tree T) {
         for (int j = 0; j < n; j++) {
             if (j == 0)
                 for (int s = 0; s < level_spaces / 2; s++) putchar(' ');
-            if (T->Array[k] != 0)
+            if (k < GetMaxSize(T) && T->Array[k] != 0)
                 printf("%02d", T->Array[k]);
             else
                 printf("..");
@@ -83,7 +83,11 @@ void PrintRow(Tree T, int Level) {
     int end = pow(2, Level + 1) - 1;
     for (int i = start; i <= end; i++) {
         if (i < GetMaxSize(T)) {
-            printf("%02d ", T->Array[i]);
+            if (T->Array[i] != 0) {
+                printf("%02d ", T->Array[i]);
+            } else {
+                printf("-- ");
+            }
         } else {
             printf("-- ");
         }
@@ -95,20 +99,20 @@ void PrintSubtree(Tree T, int Index) {
     if (T == NULL) {
         Error("No tree!");
     }
-    if (Index < 1 || Index >= GetMaxSize(T)) {
+    if (Index < 1 || Index >= GetMaxSize(T) || T->Array[Index] == 0) {
         Error("Bad index!");
     }
     printf("%02d ", T->Array[Index]);
     int leftChild = 2 * Index;
     int rightChild = 2 * Index + 1;
-    if (leftChild < GetMaxSize(T) && T->Array[leftChild] != 0) {
+    if (leftChild < GetMaxSize(T)) {
         PrintSubtree(T, leftChild);
     }
-    if (rightChild < GetMaxSize(T) && T->Array[rightChild] != 0) {
+    if (rightChild < GetMaxSize(T)) {
         PrintSubtree(T, rightChild);
     }
 }
 
 void MyPrintf(const char *format, ...) {
-
+    // Реализуйте свою логику для форматированного вывода здесь, если необходимо
 }
