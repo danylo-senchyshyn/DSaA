@@ -3,24 +3,26 @@
 #include "graph.h"
 #include "lqueue.h"
 
-struct GraphRecord {
+struct GraphRecord
+{
     int adj[max][max];
     int visited[max];
     int nodes;
 };
 
 Graph CreateGraph(int NodesCount) {
-    Graph G;
-
-    G = malloc(sizeof(struct GraphRecord));
-    if (G == NULL) Error("Out of space!!!");
+    Graph G = malloc(sizeof(struct GraphRecord));
+    if (G == NULL) Error("Out of space!");
 
     G->nodes = NodesCount;
 
-    for (int i = 0; i < max; i++) {
-        for (int j = 0; j < max; j++) {
+    for (int i = 0; i < NodesCount; i++) {
+        for (int j = 0; j < NodesCount; j++) {
             G->adj[i][j] = 0;
         }
+    }
+
+    for (int i = 0; i < NodesCount; i++) {
         G->visited[i] = 0;
     }
 
@@ -28,59 +30,77 @@ Graph CreateGraph(int NodesCount) {
 }
 
 void DisposeGraph(Graph G) {
-    free(G);
+    if (G != NULL) {
+        free(G);
+    }
 }
 
-/* a function to build adjacency matrix of a graph */
 void buildadjm(Graph G) {
-    int i, j;
-    for (i = 0; i < G->nodes; i++)
-        for (j = 0; j < G->nodes; j++) {
-            printf("enter 1 if there is an edge from %d to %d, otherwise enter 0 \n", i, j);
-            scanf("%d", &(G->adj[i][j]));
-        }
+    int u, v;
+    printf("Введите ребра в формате 'u v' (Ctrl+D для завершения):\n");
+    while (scanf("%d %d", &u, &v) == 2) {
+        G->adj[u][v] = 1;
+        G->adj[v][u] = 1;
+    }
 }
 
 void printadjm(Graph G) {
-    int i, j;
-    for (i = 0; i < G->nodes; i++) {
-        for (j = 0; j < G->nodes; j++)
-            printf(" %d", G->adj[i][j]);
-        putchar('\n');
+    printf("\nМатрица смежности:\n");
+    for (int i = 0; i < G->nodes; i++) {
+        for (int j = 0; j < G->nodes; j++) {
+            printf("%d ", G->adj[i][j]);
+        }
+        printf("\n");
     }
 }
 
 void ClearVisited(Graph G) {
-    int n;
-    for (n = 0; n < G->nodes; n++)
-        G->visited[n] = 0;
+    for (int i = 0; i < G->nodes; i++) {
+        G->visited[i] = 0;
+    }
 }
 
 // 3 stavy - 0 (not found), 1 (opened), 2 (closed)
 void dfs(Graph G, int v0) {
     if (G == NULL) {
-        printf("Graph is NULL\n");
         return;
+        Error("Graph is NULL!");
     }
     if (G->nodes <= 0) {
-        printf("Graph is empty\n");
-        return;
+        Error("Graph has no nodes!");
     }
     if (v0 < 0 || v0 >= G->nodes) {
-        printf("Invalid starting node\n");
+        Error("Starting node is out of bounds!");
+    }
+    if (G->visited[v0] == 1) {
         return;
     }
-    ClearVisited(G);
-    dfs2(G, v0);  // Рекурсивный вызов функции dfs2
+    if (G->visited[v0] == 2) {
+        return;
+    }
+
+    printf("Посещаем узел %d\n", v0);
+    G->visited[v0] = 1;
+
+    for (int i = 0; i < G->nodes; i++) {
+        if (G->adj[v0][i] == 1 && G->visited[i] == 0) {
+            printf("Ребро: %d - %d\n", v0, i); // Печатаем ребро
+            dfs(G, i);
+        }
+    }
+
+    G->visited[v0] = 2;
 }
 
 void dfs2(Graph G, int v) {
+    if (G->visited[v] == 1) return; // Если узел уже открыт, выходим
+
+    printf("Посещаем узел %d\n", v);
     G->visited[v] = 1;
-    printf("Visited: %d\n", v);
 
     for (int w = 0; w < G->nodes; w++) {
         if (G->adj[v][w] == 1 && G->visited[w] == 0) {
-            printf("Edge: %d -> %d\n", v, w);
+            printf("Ребро: %d - %d\n", v, w); // Печатаем ребро
             dfs2(G, w);
         }
     }
@@ -88,98 +108,54 @@ void dfs2(Graph G, int v) {
 
 void dfsst(Graph G, int v0) {
     if (G == NULL) {
-        printf("Graph is NULL\n");
-        return;
+        Error("Graph is NULL!");
+    }
+    ClearVisited(G); // Сбрасываем посещенные узлы
+
+    printf("Остовное дерево для DFS:\n");
+    dfs(G, v0); // Запускаем обычный DFS
+    for (int i = 0; i < G->nodes; i++) {
+        if (G->visited[i] == 0) { // Если узел не был посещен
+            dfs(G, i); // Запускаем DFS для непосещенных узлов
+        }
+    }
+}
+
+void bfs(Graph G, int v0) {
+    if (G == NULL) {
+        Error("Graph is NULL!");
     }
     if (G->nodes <= 0) {
-        printf("Graph is empty\n");
-        return;
+        Error("Graph has no nodes!");
     }
     if (v0 < 0 || v0 >= G->nodes) {
-        printf("Invalid starting node\n");
-        return;
+        Error("Starting node is out of bounds!");
     }
 
-    ClearVisited(G);
-    printf("Spanning Tree from node %d:\n", v0);
-    dfsst2(G, v0);
-
-    for (int i = 0; i < G->nodes; i++) {
-        if (G->visited[i] == 0) {
-            printf("Spanning Tree from node %d:\n", i);
-            dfsst2(G, i);
-        }
-    }
-}
-
-void dfsst2(Graph G, int v) {
-    G->visited[v] = 1;
-    for (int w = 0; w < G->nodes; w++) {
-        if (G->adj[v][w] == 1 && G->visited[w] == 0) {
-            printf("Edge (Spanning Tree): %d -> %d\n", v, w);
-            dfsst2(G, w);
-        }
-    }
-}
-
-void bfs(Graph G, int start) {
-    if (G == NULL) {
-        printf("Graph is NULL\n");
-        return;
-    }
-    if (G->nodes <= 0) {
-        printf("Graph is empty\n");
-        return;
-    }
-    if (start < 0 || start >= G->nodes) {
-        printf("Invalid starting node\n");
-        return;
-    }
-
-    ClearVisited(G);
+    // Используем очередь для BFS
     LQueue Q = CreateQueue();
-    Enqueue(start, Q);
-    G->visited[start] = 1;
+    Enqueue(v0, Q);
+    G->visited[v0] = 1; // Узел открыт
 
     while (!IsEmptyQueue(Q)) {
         int v = Front(Q);
-        Dequeue(Q);
-        printf("Visited: %d\n", v);
+        Dequeue(Q); // Извлекаем узел из очереди
+        printf("Посещаем узел %d\n", v);
 
-        for (int w = 0; w < G->nodes; w++) {
-            if (G->adj[v][w] == 1 && G->visited[w] == 0) {
-                printf("Edge: %d -> %d\n", v, w);
-                Enqueue(w, Q);
-                G->visited[w] = 1;
+        for (int i = 0; i < G->nodes; i++) {
+            if (G->adj[v][i] == 1 && G->visited[i] == 0) {
+                printf("Ребро: %d -> %d\n", v, i); // Выводим ребро
+                Enqueue(i, Q); // Добавляем узел в очередь
+                G->visited[i] = 1; // Узел открыт
             }
         }
     }
-    RemoveQueue(&Q);
+
+    RemoveQueue(&Q); // Удаляем очередь
 }
 
 void bfsst(Graph G, int v0) {
-    if (G == NULL) {
-        printf("Graph is NULL\n");
-        return;
-    }
-    if (G->nodes <= 0) {
-        printf("Graph is empty\n");
-        return;
-    }
-    if (v0 < 0 || v0 >= G->nodes) {
-        printf("Invalid starting node\n");
-        return;
-    }
-
-    ClearVisited(G);
-    printf("Spanning Tree from node %d:\n", v0);
+    ClearVisited(G); // Сбрасываем посещенные узлы
+    printf("Костя графа (spanning tree) с помощью BFS:\n");
     bfs(G, v0);
-
-    // Обработка несвязанных компонент
-    for (int i = 0; i < G->nodes; i++) {
-        if (G->visited[i] == 0) {
-            printf("Spanning Tree from node %d:\n", i);
-            bfs(G, i);
-        }
-    }
 }
