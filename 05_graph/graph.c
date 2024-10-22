@@ -183,7 +183,3 @@ void bfsst(Graph G, int v0) {
         }
     }
 }
-
-void MyPrintf(const char *format, ...) {
-
-}
