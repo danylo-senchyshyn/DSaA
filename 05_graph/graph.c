@@ -13,6 +13,7 @@ struct GraphRecord {
 Graph CreateGraph(int NodesCount) {
     if (NodesCount <= 0 || NodesCount > max) {
         Error("Invalid number of nodes!");
+        return NULL;
     }
 
     Graph G = malloc(sizeof(struct GraphRecord));
@@ -33,6 +34,7 @@ Graph CreateGraph(int NodesCount) {
 void DisposeGraph(Graph G) {
     if (G == NULL) {
         Error("Attempted to dispose a null graph!");
+        return;
     }
     free(G);
 }
@@ -40,6 +42,7 @@ void DisposeGraph(Graph G) {
 void buildadjm(Graph G) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
 
     for (int i = 0; i < G->nodes; i++) {
@@ -57,6 +60,7 @@ void buildadjm(Graph G) {
 void printadjm(Graph G) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
 
     for (int i = 0; i < G->nodes; i++) {
@@ -70,6 +74,7 @@ void printadjm(Graph G) {
 void ClearVisited(Graph G) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
 
     for (int n = 0; n < G->nodes; n++) {
@@ -80,9 +85,11 @@ void ClearVisited(Graph G) {
 void dfs(Graph G, int v0) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
     if (v0 < 0 || v0 >= G->nodes) {
         Error("Invalid starting node for DFS!");
+        return;
     }
 
     ClearVisited(G);
@@ -103,9 +110,11 @@ void dfs2(Graph G, int v) {
 void dfsst(Graph G, int v0) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
     if (v0 < 0 || v0 >= G->nodes) {
         Error("Invalid starting node for DFS spanning tree!");
+        return;
     }
 
     ClearVisited(G);
@@ -132,9 +141,11 @@ void dfsst2(Graph G, int v) {
 void bfs(Graph G, int v0) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
     if (v0 < 0 || v0 >= G->nodes) {
         Error("Invalid starting node for BFS!");
+        return;
     }
 
     ClearVisited(G);
@@ -167,9 +178,11 @@ void bfs(Graph G, int v0) {
 void bfsst(Graph G, int v0) {
     if (G == NULL) {
         Error("Graph is null!");
+        return;
     }
     if (v0 < 0 || v0 >= G->nodes) {
         Error("Invalid starting node for BFS spanning tree!");
+        return;
     }
 
     ClearVisited(G);
