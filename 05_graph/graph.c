@@ -89,6 +89,7 @@ void dfsst(Graph G, int v0) {
     } while ((not_visited_node = find_not_visited_node(G)) != -1);
 }
 
+
 void dfsst2(Graph G, int v) {
     for (int w = 0; w < G->nodes; w++) {
         if (G->adj[v][w] == 1 && G->visited[w] == 0) {
