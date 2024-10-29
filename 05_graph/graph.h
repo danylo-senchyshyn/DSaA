@@ -1,5 +1,4 @@
 #define max 10
-#include "stdbool.h"
 struct GraphRecord;
 typedef struct GraphRecord *Graph;
 
@@ -17,4 +16,3 @@ void dfsst(Graph G, int v0);
 void dfsst2(Graph G, int v);
 
 void MyPrintf(const char *format, ...);
-bool IsGraphValid(Graph G);
