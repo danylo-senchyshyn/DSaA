@@ -44,20 +44,25 @@ void printadjm(Graph G) {
 }
 
 void ClearVisited(Graph G) {
-    int n;
-    for (n = 0; n < G->nodes; n++)
-        G->visited[n] = 0;
+    for (int i = 0; i < G->nodes; i++) {
+        G->visited[i] = 0;  
+    }
 }
 
-// 3 stavy - 0 (not found), 1 (opened), 2 (closed)
 void dfs(Graph G, int v0) {
+    if (G == NULL || G->nodes <= 0) {
+        printf("Invalid graph\n");
+        return;
+    }
     if (v0 < 0 || v0 >= G->nodes) {
         printf("Invalid starting vertex: %d\n", v0);
         return;
     }
+
     ClearVisited(G);
     printf("DFS starting from vertex %d:\n", v0);
     dfs2(G, v0);
+
     for (int i = 0; i < G->nodes; i++) {
         if (G->visited[i] == 0) {
             printf("DFS starting from component vertex %d:\n", i);
@@ -75,6 +80,7 @@ void dfs2(Graph G, int v) {
             dfs2(G, w);
         }
     }
+    G->visited[v] = 2; 
 }
 
 void dfsst(Graph G, int v0) {
