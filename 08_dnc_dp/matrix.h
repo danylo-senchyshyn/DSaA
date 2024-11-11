@@ -1,0 +1,1 @@
+int chainMatrixMultiplication(int *r, int n);

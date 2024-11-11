@@ -38,6 +38,7 @@ void postorder(int root) {
     printf("%d ", value[root]);
 }
 
+// принцип очереди
 void levelorder(int root) {
     int queue[100];
     int front = 0, rear = 0;
@@ -80,6 +81,7 @@ void inorderNR(int v) {
     RemoveStack(&S);
 }
 
+// принцип стека
 void preorderNR(int v) {
     LStack S = CreateStack();
     Push(v, S);

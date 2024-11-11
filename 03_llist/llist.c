@@ -144,6 +144,7 @@ void PrintList(LList L) {
     }
 }
 
+// к первому добавляем второй
 void FastCat(LList L1, LList L2) {
     if (L1 == NULL || L2 == NULL) {
         Error("One of the list doesn`t exist");
@@ -164,6 +165,7 @@ void FastCat(LList L1, LList L2) {
     L2->Last = NULL;
 }
 
+// создаем новый с двух
 LList FreshCat(LList L1, LList L2) {
     if (L1 == NULL || L2 == NULL) {
         Error("One of the list doesn`t exist");
@@ -178,6 +180,7 @@ LList FreshCat(LList L1, LList L2) {
         P = P->Next;
     }
 
+
     P = L2->First;
     while (P != NULL) {
         InsertEnd(P->Elem, NewList);
@@ -187,27 +190,27 @@ LList FreshCat(LList L1, LList L2) {
     return NewList;
 }
 
+
+// возвращаем поделенную часть с одного длинного
 LList Cut(LList L, PNode P) {
     if (L == NULL || P == NULL) {
         Error("One of the list doesn`t exist");
         return NULL;
     }
 
-    LList L2 = malloc(sizeof(struct LnkList));
-    L2->First = NULL;
-    L2->Last = NULL;
+    LList L2 = MakeEmpty(NULL);
 
     PNode tmp = L->First;
-    if (!IsEmpty(L)) {
+    if (!IsEmpty(L)) { // проверка на нужную ноду
         do {
-            if (tmp == P) {
-                L2->First = tmp->Next;
-                L2->Last = L->Last;
-                L->Last = tmp;
-                L->Last->Next = NULL;
-                break;
-            }
-            tmp = tmp->Next;
+            if (tmp == P) {                 //
+                L2->First = tmp->Next;      //
+                L2->Last = L->Last;         //
+                L->Last = tmp;              // копирование
+                L->Last->Next = NULL;       //
+                break;                      //
+            }                               //
+            tmp = tmp->Next;                //
         } while (tmp != NULL);
     }
 

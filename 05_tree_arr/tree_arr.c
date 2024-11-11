@@ -72,6 +72,7 @@ void PrintSpaces(int Count) {
     }
 }
 
+// вывести один уровень (этаж) дерева
 void PrintRow(Tree T, int Level) {
     if (T == NULL) {
         Error("No tree!");
@@ -81,6 +82,7 @@ void PrintRow(Tree T, int Level) {
         Error("Bad level!");
         return;
     }
+
     int start = pow(2, Level);
     int end = pow(2, Level + 1) - 1;
 
@@ -98,6 +100,7 @@ void PrintRow(Tree T, int Level) {
     putchar('\n');
 }
 
+// переписуем дерево с вершиной указанной индексом
 void PrintSubtree(Tree T, int Index) {
     if (T == NULL) {
         Error("No tree!");
