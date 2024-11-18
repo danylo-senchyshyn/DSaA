@@ -8,7 +8,35 @@ void PrintArray(int a[], int n, int prechod) {
 }
 
 void bubbleSort(int a[], int n, int dir) {
-    printf("DOPLNIT ...");
+    if (a == NULL || n < 1) {
+        return;
+    }
+
+    int temp;
+
+    if (dir == ASC) {
+        for (int i = 0; i <= n; i++) {
+            for (int j = n; j >= i + 1; j--) {
+                if((a[j - 1] > a[j])) {
+                    temp = a[j - 1];
+                    a[j - 1] = a[j];
+                    a[j] = temp;
+                }
+                PrintArray(a, n, dir);
+            }
+        }
+    } else if (dir == DSC) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = n; j >= i + 1; j--) {
+                if((a[j - 1] < a[j])) {
+                    temp = a[j - 1];
+                    a[j - 1] = a[j];
+                    a[j] = temp;
+                }
+                PrintArray(a, n, dir);
+            }
+        }
+    }
 }
 
 void insertSort(int *A, int n, int dir) {
