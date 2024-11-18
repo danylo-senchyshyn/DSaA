@@ -1,0 +1,1 @@
+	#include <stdio.h>	#define ASC 1   // vzostupne	#define DSC 0   // zostupne	// Implementovat	void bubbleSort(int a[], int n, int dir);	void insertSort(int a[], int n, int dir);	void selectionSort(int a[], int n, int dir);	void MyPrintf(const char *format, ...);
