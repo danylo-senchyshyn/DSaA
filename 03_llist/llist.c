@@ -5,17 +5,14 @@
 #include "llist.h"
 #include "err.h"
 #include <stdlib.h>
-
 struct Node {
     PNode Next;
     TElem Elem;
 };
-
 struct LnkList {
     PNode First;
     PNode Last;
 };
-
 LList MakeEmpty(LList L) {
     LList PL;
     if (L != NULL) RemoveList(&L);
@@ -25,7 +22,6 @@ LList MakeEmpty(LList L) {
     PL->Last = NULL;
     return PL;
 }
-
 void RemoveList(LList *PL) {
     PNode T, P;
     if (PL == NULL) Error("RemoveList: incorrect pointer!");
@@ -40,7 +36,6 @@ void RemoveList(LList *PL) {
     free(L);
     *PL = NULL;
 }
-
 void Delete(TElem X, LList L) {
     PNode P, C;
     if (L == NULL) Error("Delete: incorrect list!");
@@ -61,17 +56,14 @@ void Delete(TElem X, LList L) {
         }
     }
 }
-
 int IsEmpty(LList L) {
     if (L == NULL) Error("IsEmpty: incorrect list!");
     return L->First == NULL;
 }
-
 int IsLast(PNode P) {
     if (P == NULL) Error("IsLast: incorrect pointer on input!");
     return P->Next == NULL;
 }
-
 PNode Member(TElem X, LList L) {
     PNode P;
     if (L == NULL) Error("Member: incorrect list!");
@@ -82,7 +74,6 @@ PNode Member(TElem X, LList L) {
     }
     return P;
 }
-
 void InsertBeg(TElem X, LList L) {
     PNode T;
     if (L == NULL) Error("InsertBeg: incorrect list!");
@@ -93,7 +84,6 @@ void InsertBeg(TElem X, LList L) {
     if (IsEmpty(L)) L->Last = T;
     L->First = T;
 }
-
 void InsertEnd(TElem X, LList L) {
     PNode T;
     if (L == NULL) Error("InsertEnd: incorrect list!");
@@ -109,26 +99,21 @@ void InsertEnd(TElem X, LList L) {
         L->Last = T;
     }
 }
-
 PNode First(LList L) {
     if (L == NULL) Error("First: incorrect list!");
     return L->First;
 }
-
 PNode Next(PNode P) {
     if (P == NULL) Error("Next: incorrect pointer on input!");
     return P->Next;
 }
-
 LList Head(LList L) {
     return L;
 }
-
 TElem Get(PNode P) {
     if (P == NULL) Error("Get: incorrect pointer on input!");
     return P->Elem;
 }
-
 void PrintList(LList L) {
     if (L == NULL) {
         printf("PrintList: incorrect list!\n");
@@ -144,28 +129,26 @@ void PrintList(LList L) {
     }
 }
 
-// к первому добавляем второй
 void FastCat(LList L1, LList L2) {
     if (L1 == NULL || L2 == NULL) {
         Error("One of the list doesn`t exist");
         return;
     }
-
     if (IsEmpty(L2)) return;
 
-    if (IsEmpty(L1)) {
+    if (IsEmpty(L1)) {  // Если L1 пустой, переназначаем указатели
         L1->First = L2->First;
         L1->Last = L2->Last;
-    } else {
+    } else {               // Если L1 не пустой, добавляем элементы L2 в конец L1
         L1->Last->Next = L2->First;
         L1->Last = L2->Last;
     }
 
+    // После переноса L2 становится пустым.
     L2->First = NULL;
     L2->Last = NULL;
 }
 
-// создаем новый с двух
 LList FreshCat(LList L1, LList L2) {
     if (L1 == NULL || L2 == NULL) {
         Error("One of the list doesn`t exist");
@@ -175,14 +158,13 @@ LList FreshCat(LList L1, LList L2) {
     LList NewList = MakeEmpty(NULL);
     PNode P = L1->First;
 
-    while (P != NULL) {
+    while (P != NULL) { // Копируем элементы из L1
         InsertEnd(P->Elem, NewList);
         P = P->Next;
     }
 
-
     P = L2->First;
-    while (P != NULL) {
+    while (P != NULL) { // Копируем элементы из L2.
         InsertEnd(P->Elem, NewList);
         P = P->Next;
     }
@@ -191,7 +173,6 @@ LList FreshCat(LList L1, LList L2) {
 }
 
 
-// возвращаем поделенную часть с одного длинного
 LList Cut(LList L, PNode P) {
     if (L == NULL || P == NULL) {
         Error("One of the list doesn`t exist");
@@ -199,18 +180,18 @@ LList Cut(LList L, PNode P) {
     }
 
     LList L2 = MakeEmpty(NULL);
-
     PNode tmp = L->First;
-    if (!IsEmpty(L)) { // проверка на нужную ноду
+
+    if (!IsEmpty(L)) {
         do {
-            if (tmp == P) {                 //
-                L2->First = tmp->Next;      //
-                L2->Last = L->Last;         //
-                L->Last = tmp;              // копирование
-                L->Last->Next = NULL;       //
-                break;                      //
-            }                               //
-            tmp = tmp->Next;                //
+            if (tmp == P) {
+                L2->First = tmp->Next;
+                L2->Last = L->Last;
+                L->Last = tmp;
+                L->Last->Next = NULL;
+                break;
+            }
+            tmp = tmp->Next;
         } while (tmp != NULL);
     }
 
@@ -228,7 +209,6 @@ int ListSize(LList L) {
     }
     return size;
 }
-
 void InsertPos(TElem X, PNode P, LList L) {
     if (L == NULL || P == NULL) Error("InsertPos: incorrect list or pointer!");
 

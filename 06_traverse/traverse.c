@@ -38,18 +38,19 @@ void postorder(int root) {
     printf("%d ", value[root]);
 }
 
-// принцип очереди
+// обход дерева по уровням
 void levelorder(int root) {
-    int queue[100];
-    int front = 0, rear = 0;
+    int queue[100];             // хранение индексов (очередь)
+    int front = 0, rear = 0;    // начало, конец
 
-    queue[rear++] = root;
+    queue[rear++] = root;       // помещаем корень в очередь
 
     while (front < rear) {
         int current = queue[front++];
 
         printf("%d ", value[current]);
 
+        // добавляем в очередь левого и правого потомков
         if (left[current] != 0) {
             queue[rear++] = left[current];
         }
@@ -81,20 +82,22 @@ void inorderNR(int v) {
     RemoveStack(&S);
 }
 
-// принцип стека
+// обход в прямом порядке, с использованием стека
 void preorderNR(int v) {
     LStack S = CreateStack();
     Push(v, S);
 
     while (!IsEmptyStack(S)) {
-        int current = Top(S);
-        Pop(S);
+        int current = Top(S);   // берём вершину стека
+        Pop(S);                 // удаляем вершину стека
 
         printf("%d ", value[current]);
 
+        // добавляем в стек правого потомка
         if (right[current] != 0) {
             Push(right[current], S);
         }
+        // Добавляем в стек левого потомка.
         if (left[current] != 0) {
             Push(left[current], S);
         }
@@ -102,6 +105,7 @@ void preorderNR(int v) {
     RemoveStack(&S);
 }
 
+// обход в прямом порядке
 void preorderTT(int root) {
     if (root == 0) return;
 
@@ -111,6 +115,7 @@ void preorderTT(int root) {
     preorderTT(right[root]);
 }
 
+// обход в обратном порядке
 void postorderTT(int root) {
     if (root == 0) return;
 

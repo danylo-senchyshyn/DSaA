@@ -9,6 +9,7 @@
 #define MIN(a, b) ((a)<(b)?a:b)
 #endif
 
+// поиск максимального и минимального элементов массива
 pair MaxMin(int A[], int L, int H) {
     pair ret1, ret2, ret;
 

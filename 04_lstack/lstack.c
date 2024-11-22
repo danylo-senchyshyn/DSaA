@@ -82,15 +82,17 @@ void PrintStack(LStack S) {
     }
 }
 
+// возвращает элемент, находящийся на вершине стека
 TElem Top(LStack S) {
     if (S == NULL || IsEmptyStack(S)) {
         Error("Top: Stack is empty or incorrect!");
         return -1;
     }
 
-    return S->First->Elem; // первый (верхний лист в стопке)
+    return S->First->Elem;
 }
 
+// функция удаляет верхний элемент из стека
 void Pop(LStack S) {
     if (S == NULL || IsEmptyStack(S)) {
         Error("Pop: Stack is empty or incorrect!");
@@ -105,6 +107,7 @@ void Pop(LStack S) {
     free(temp);
 }
 
+// возвращает верхний элемент стека и одновременно удаляет его
 TElem TopAndPop(LStack S) {
     if (S == NULL || IsEmptyStack(S)) {
         Error("TopAndPop: Stack is empty or incorrect!");

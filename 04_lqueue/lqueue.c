@@ -82,14 +82,17 @@ void PrintQueue(LQueue Q) {
     }
 }
 
+// возвращает элемент из передней части очереди
 TElem Front(LQueue Q) {
     if (Q == NULL || IsEmptyQueue(Q)) {
         Error("Front: Queue is empty or incorrect!");
         return -1;
     }
-    return Q->Front->Elem; // передний элемент в очередь
+
+    return Q->Front->Elem;
 }
 
+// удаляет передний элемент из очереди
 void Dequeue(LQueue Q) {
     if (Q == NULL || IsEmptyQueue(Q)) {
         Error("Dequeue: Queue is empty or incorrect!");
@@ -99,11 +102,12 @@ void Dequeue(LQueue Q) {
     PNode temp = Q->Front;
     Q->Front = Q->Front->Next;
     if (Q->Front == NULL) {
-        Q->Rear = NULL; // последний
+        Q->Rear = NULL;
     }
     free(temp);
 }
 
+// возвращает передний элемент очереди и удаляет его
 TElem FrontAndDequeue(LQueue Q) {
     if (Q == NULL || IsEmptyQueue(Q)) {
         Error("FrontAndDequeue: Queue is NULL or empty!");

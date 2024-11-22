@@ -72,7 +72,7 @@ void PrintSpaces(int Count) {
     }
 }
 
-// вывести один уровень (этаж) дерева
+// выводит все узлы на указанном уровне дерева. уровень начинается с 0
 void PrintRow(Tree T, int Level) {
     if (T == NULL) {
         Error("No tree!");
@@ -83,8 +83,8 @@ void PrintRow(Tree T, int Level) {
         return;
     }
 
-    int start = pow(2, Level);
-    int end = pow(2, Level + 1) - 1;
+    int start = pow(2, Level);          // первый узел на уровне
+    int end = pow(2, Level + 1) - 1;    // последний узел на уровне
 
     for (int i = start; i <= end; i++) {
         if (i < GetMaxSize(T)) {
@@ -100,7 +100,7 @@ void PrintRow(Tree T, int Level) {
     putchar('\n');
 }
 
-// переписуем дерево с вершиной указанной индексом
+// выводит все узлы поддерева, уровень - Index
 void PrintSubtree(Tree T, int Index) {
     if (T == NULL) {
         Error("No tree!");
@@ -122,5 +122,4 @@ void PrintSubtree(Tree T, int Index) {
 }
 
 void MyPrintf(const char *format, ...) {
-    // Реализуйте свою логику для форматированного вывода здесь, если необходимо
 }
