@@ -13,63 +13,42 @@ void bubbleSort(int a[], int n, int dir) {
     }
 
     int temp;
-    if (dir == ASC) {
-        for (int i = 0; i <= n; i++) {
-            for (int j = n; j >= i + 1; j--) {
-                if ((a[j - 1] > a[j])) {
-                    temp = a[j - 1];
-                    a[j - 1] = a[j];
-                    a[j] = temp;
-                }
-                PrintArray(a, n, dir);
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = n - 1; j > i; j--) {
+            if ((dir == ASC && a[j - 1] > a[j]) || (dir == DSC && a[j - 1] < a[j])) {
+                temp = a[j - 1];
+                a[j - 1] = a[j];
+                a[j] = temp;
             }
         }
-    } else if (dir == DSC) {
-        for (int i = 1; i <= n; i++) {
-            for (int j = n; j >= i + 1; j--) {
-                if ((a[j - 1] < a[j])) {
-                    temp = a[j - 1];
-                    a[j - 1] = a[j];
-                    a[j] = temp;
-                }
-                PrintArray(a, n, dir);
-            }
-        }
+        PrintArray(a, n, i + 1);
     }
 }
 
 void insertSort(int *A, int n, int dir) {
-    if (A == NULL || n < 0) {
+    if (A == NULL || n <= 0) {
         return;
     }
 
-    int value, j;
-    if (dir == ASC) {
-        for (int i = 1; i <= n; i++) {
-            value = A[i];
-            j = i - 1;
+    for (int i = 1; i < n; i++) {
+        int value = A[i];
+        int j = i - 1;
 
-            while (j >= 1 && A[j] > value) {
+        if (dir == ASC) {
+            while (j >= 0 && A[j] > value) {
                 A[j + 1] = A[j];
                 j--;
             }
-
-            A[j + 1] = value;
-            PrintArray(A, n, dir);
-        }
-    } else if (dir == DSC) {
-        for (int i = 1; i <= n; i++) {
-            value = A[i];
-            j = i - 1;
-
-            while (j >= 1 && A[j] < value) {
+        } else if (dir == DSC) {
+            while (j >= 0 && A[j] < value) {
                 A[j + 1] = A[j];
                 j--;
             }
-
-            A[j + 1] = value;
-            PrintArray(A, n, dir);
         }
+
+        A[j + 1] = value;
+
+        PrintArray(A, n, dir);
     }
 }
 
@@ -80,34 +59,35 @@ void selectionSort(int a[], int n, int dir) {
     }
 
     int i, j, minidx, tmp;
-    PrintArray(a, n, dir);
+    PrintArray(a, n, 0);
+
     if (dir == ASC) {
-        for (i = 1; i <= n; i++) {
+        for (i = 0; i < n - 1; i++) {
             minidx = i;
-            for (j = i + 1; j <= n; j++) {
+            for (j = i + 1; j < n; j++) {
                 if (a[j] < a[minidx]) {
                     minidx = j;
                 }
             }
-
             tmp = a[i];
             a[i] = a[minidx];
             a[minidx] = tmp;
-            PrintArray(a, n, dir);
+
+            PrintArray(a, n, i + 1);
         }
     } else if (dir == DSC) {
-        for (i = 1; i <= n; i++) {
+        for (i = 0; i < n - 1; i++) {
             minidx = i;
-            for (j = i + 1; j <= n; j++) {
+            for (j = i + 1; j < n; j++) {
                 if (a[j] > a[minidx]) {
                     minidx = j;
                 }
             }
-
             tmp = a[i];
             a[i] = a[minidx];
             a[minidx] = tmp;
-            PrintArray(a, n, dir);
+
+            PrintArray(a, n, i + 1);
         }
     }
 }
