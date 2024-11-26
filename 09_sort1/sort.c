@@ -39,7 +39,7 @@ void bubbleSort(int a[], int n, int dir) {
 }
 
 void insertSort(int *A, int n, int dir) {
-    if (A == NULL || n < 1) {
+    if (A == NULL || n < 0) {
         return;
     }
 
