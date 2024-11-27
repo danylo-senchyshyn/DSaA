@@ -60,7 +60,46 @@ int HTmember(PHASHTABLE t, char *key) {
 }
 
 void HTdelete(PHASHTABLE t, char *key) {
+    unsigned int h = Hash(key, t->size);
+    PNODE ptr = t->table[h];
+    PNODE prev = NULL;
+
+    if (ptr == NULL) {
+        printf("Key '%s' not found in the hashtable.\n", key);
+        return;
+    }
+
+    while (ptr != NULL) {
+        if (strcmp(ptr->key, key) == 0) {
+            if (prev == NULL) {
+                t->table[h] = ptr->next;
+            } else {
+                prev->next = ptr->next;
+            }
+            free(ptr);
+            printf("Key '%s' deleted from the hashtable.\n", key);
+            return;
+        }
+        prev = ptr;
+        ptr = ptr->next;
+    }
+
+    printf("Key '%s' not found in the hashtable.\n", key);
 }
 
 void HTprint(PHASHTABLE t) {
+    printf("Hashtable contents:\n");
+    for (int i = 0; i < t->size; i++) {
+        printf("Slot %d:", i);
+        PNODE ptr = t->table[i];
+        if (ptr == NULL) {
+            printf(" (empty)\n");
+        } else {
+            while (ptr != NULL) {
+                printf(" -> %s", ptr->key);
+                ptr = ptr->next;
+            }
+            printf("\n");
+        }
+    }
 }
