@@ -28,8 +28,10 @@ void RadixSortQueue(char *A[], int n, int k) {
     LQueue B[10];
     TElem temp;
     q = CreateQueue();
-    for (i = 0; i < 10; i++)B[i] = CreateQueue();
-    for (i = 0; i < n; i++) Enqueue(A[i], q);
+    for (i = 0; i < 10; i++)
+        B[i] = CreateQueue();
+    for (i = 0; i < n; i++)
+        Enqueue(A[i], q);
 
     /* DOPLNIT UTRIEDENIE */
 
@@ -55,5 +57,10 @@ void RadixSortQueue(char *A[], int n, int k) {
     while (!IsEmptyQueue(q)) {
         temp = FrontAndDequeue(q);
         A[i++] = temp;
+    }
+
+    RemoveQueue(&q);
+    for (i = 0; i < 10; i++) {
+        RemoveQueue(&B[i]);
     }
 }
