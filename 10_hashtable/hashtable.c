@@ -98,7 +98,7 @@ void HTprint(PHASHTABLE t) {
         return;
     }
 
-    printf("Hashtable contents:\n");
+    //printf("Hashtable contents:\n");
 
     for (int i = 0; i < t->size; i++) {
         printf("Slot %d:", i);
