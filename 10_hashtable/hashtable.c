@@ -94,7 +94,7 @@ void HTdelete(PHASHTABLE t, char *key) {
 
 void HTprint(PHASHTABLE t) {
     if (t == NULL) {
-        printf("Error: Hashtable is NULL.\n");
+        //printf("Error: Hashtable is NULL.\n");
         return;
     }
 
