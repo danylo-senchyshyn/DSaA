@@ -60,7 +60,12 @@ int HTmember(PHASHTABLE t, char *key) {
 }
 
 void HTdelete(PHASHTABLE t, char *key) {
+    if (key == NULL || t == NULL) {
+        return;
+    }
+
     unsigned int h = Hash(key, t->size);
+
     PNODE ptr = t->table[h];
     PNODE prev = NULL;
 
@@ -88,10 +93,18 @@ void HTdelete(PHASHTABLE t, char *key) {
 }
 
 void HTprint(PHASHTABLE t) {
+    if (t == NULL) {
+        printf("Error: Hashtable is NULL.\n");
+        return;
+    }
+
     printf("Hashtable contents:\n");
+
     for (int i = 0; i < t->size; i++) {
         printf("Slot %d:", i);
+
         PNODE ptr = t->table[i];
+
         if (ptr == NULL) {
             printf(" (empty)\n");
         } else {

@@ -26,7 +26,6 @@ void bubbleSort(int a[], int n, int dir) {
         }
     } else if (dir == DSC) {
         for (int i = 1; i <= n; i++) {
-            PrintArray(a, n, dir);
             for (int j = n; j >= i + 1; j--) {
                 if ((a[j - 1] < a[j])) {
                     temp = a[j - 1];
@@ -34,6 +33,7 @@ void bubbleSort(int a[], int n, int dir) {
                     a[j] = temp;
                 }
             }
+            PrintArray(a, n, dir);
         }
     }
 }
