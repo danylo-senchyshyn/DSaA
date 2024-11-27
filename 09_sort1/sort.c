@@ -14,7 +14,7 @@ void bubbleSort(int a[], int n, int dir) {
 
     int temp;
     if (dir == ASC) {
-        for (int i = 0; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             for (int j = n; j >= i + 1; j--) {
                 if ((a[j - 1] > a[j])) {
                     temp = a[j - 1];
