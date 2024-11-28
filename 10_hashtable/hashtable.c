@@ -101,15 +101,15 @@ void HTprint(PHASHTABLE t) {
     //printf("Hashtable contents:\n");
 
     for (int i = 0; i < t->size; i++) {
-        //printf("Slot %d:", i);
+        printf("%d:", i);
 
         PNODE ptr = t->table[i];
 
         if (ptr == NULL) {
-            //printf(" (empty)\n");
+            printf(" \n");
         } else {
             while (ptr != NULL) {
-                //printf(" -> %s", ptr->key);
+                printf(" -> %s", ptr->key);
                 ptr = ptr->next;
             }
             printf("\n");
