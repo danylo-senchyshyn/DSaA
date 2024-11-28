@@ -75,7 +75,6 @@ void insertSort(int *A, int n, int dir) {
 
 void selectionSort(int a[], int n, int dir) {
     if (a == NULL || n < 1) {
-        printf("Error\n");
         return;
     }
 
