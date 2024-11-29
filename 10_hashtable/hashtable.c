@@ -98,15 +98,13 @@ void HTprint(PHASHTABLE t) {
     }
 
     for (int i = 0; i < t->size; i++) {
-        printf("%d:", i);
-
         PNODE ptr = t->table[i];
 
         if (ptr == NULL) {
             printf(" \n");
         } else {
             while (ptr != NULL) {
-                printf(" %s", ptr->key);
+                printf("%d: %s", i, ptr->key);
                 ptr = ptr->next;
             }
             printf("\n");
