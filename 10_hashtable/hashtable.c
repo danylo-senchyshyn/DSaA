@@ -99,7 +99,7 @@ void HTprint(PHASHTABLE t) {
 
     for (int i = 0; i < t->size; i++) {
         PNODE ptr = t->table[i];
-        printf("\n%d", i);
+        printf("\n%d:", i);
 
         if (ptr != NULL) {
             while (ptr != NULL) {
