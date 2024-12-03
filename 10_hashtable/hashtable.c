@@ -102,8 +102,10 @@ void HTprint(PHASHTABLE t) {
         printf("\n%d", i);
 
         if (ptr != NULL) {
-            printf(" %s", ptr->key);
-            ptr = ptr->next;
+            while (ptr != NULL) {
+                printf(" %s", ptr->key);
+                ptr = ptr->next;
+            }
         }
     }
 }
