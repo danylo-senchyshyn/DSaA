@@ -55,5 +55,6 @@ int main() {
     for (i = 1; i <= N; i++)printf("%2d ", d[i]);
     printf("\n");
     // system("PAUSE");
+
     return 0;
 }
